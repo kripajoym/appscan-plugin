@@ -13,7 +13,7 @@ import java.util.ServiceLoader;
 
 import jenkins.model.Jenkins;
 
-import com.hcl.appscan.sdk.CoreConstants;
+import com.hcl.appscan.sdk.CoreConstants;nk,jklh
 import com.hcl.appscan.sdk.auth.IAuthenticationProvider;
 import com.hcl.appscan.sdk.logging.IProgress;
 import com.hcl.appscan.sdk.scan.IScan;
