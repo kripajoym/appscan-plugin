@@ -35,7 +35,7 @@ installation and configuration of the plugin for HCL AppScan on Cloud.
         step 1 above.
     -   **Application:** Select the application to associate the scan
         with. NOTE: You must create at least 1 application in the
- 	HCL AppScan on Cloud](https://cloud.appscan.com) service or
+ 	HCL AppScan on Cloud(https://cloud.appscan.com) service or
         this field will be empty.
     -   **Test Name:** Specify a name to use for the scan. This value
         will be used to distinguish this scan and its results from
@@ -59,12 +59,6 @@ installation and configuration of the plugin for HCL AppScan on Cloud.
                                   Recommended for Dev and QA during initial evaluation.
                     - **No Optimization**: Select this option for maximum issue coverage and longest scan. Recommended for security
                       experts before major releases, compliance testing and benchmarks.								
-                -   **Login User** and **Login Password**: If your app
-                    requires login, enter valid user credentials so that
-                    Application Security on Cloud can log in to the
-                    site.
-                -   **Extra Field**: If your app requires a third
-                    credential, enter it in this field.
                 -   **Presence**: If your app is not on the internet,
                     select your AppScan Presence from the list.
                     Information about creating an AppScan Presence is
@@ -75,6 +69,16 @@ installation and configuration of the plugin for HCL AppScan on Cloud.
                     field. To learn more about AppScan Standard scan
                     files, see [this
                     topic](https://help.hcltechsw.com/appscan/ASoC/asd_AppScanStandard.html).
+				-   **Application login**: Select a Login method from the available options so 
+											AppScan can scan pages that require authentication. 
+					- **Login not required**: Leave this selected if no login is needed
+					- **Login required: Username and password**: Select this option to allow login to the application 
+																	using a username and password.
+						-   **Login User** and **Login Password**: If your app requires login, enter valid user credentials so that 
+																	Application Security on Cloud can log in to the site.
+						-   **Extra Field**: If your app requires a third credential, enter it in this field.
+					- **Login required: Record login**: Select this option to allow login to the application using a recorded login sequence.
+						-   **Login Sequence File**: Provide a path to the login sequence file data. Supported file type is .CONFIG.
         -   **Static Analyzer**
             -   **Target**: Enter the full path to the directory that
                 contains the files that you want to scan or enter the
@@ -95,6 +99,8 @@ installation and configuration of the plugin for HCL AppScan on Cloud.
         thresholds for total, high, medium, and/or low finding counts.
         If multiple conditions are added, they will be treated as though
         they are separated by a logical OR.
+
+ For more information on adding security analysis to Jenkins automation server, please visit this [link](http://help.hcltechsw.com/appscan/ASoC/appseccloud_jenkins.html?query=jenkins).
 
 **Integration with HCL AppScan Enterprise**
 
@@ -168,10 +174,10 @@ installation and configuration of the plugin for HCL AppScan on Cloud.
 
 ## Additional Information
 **Known Issues**
-- ASoC is no longer providing Mobile Scan support. The Mobile Scan functionality
-has been removed from Jenkins since revision 1.0.10. The existing jobs that 
+- ASoC is no longer providing Mobile Scan support. Refer to 
+[this page](https://support.hcltechsw.com/community?id=community_blog&sys_id=a537a63adbb6f054a45ad9fcd396191f) for more information. 
+The Mobile Scan functionality
+has been removed from Jenkins since version 1.0.10. The existing jobs that 
 have Mobile Scan configurations must therefore be updated accordingly.
-
-<http://help.hcltechsw.com/appscan/ASoC/appseccloud_jenkins.html?query=jenkins>
 
 
