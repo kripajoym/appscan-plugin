@@ -1,0 +1,69 @@
+name: Docs Sync Agent
+description: Reusable GitHub Action for the autonomous documentation sync pipeline.
+
+inputs:
+  github-token:
+    description: Token used to read source repository commit context.
+    required: true
+  openai-api-key:
+    description: OpenAI API key used by the agent.
+    required: true
+  docs-repo-token:
+    description: Token used to push branches and open PRs in the docs repository.
+    required: true
+  docs-repo-owner:
+    description: Owner of the target docs repository.
+    required: true
+  docs-repo-name:
+    description: Name of the target docs repository.
+    required: true
+  docs-base-branch:
+    description: Base branch in the docs repository.
+    required: false
+    default: main
+  confidence-threshold:
+    description: Confidence threshold for creating a docs PR.
+    required: false
+    default: "0.75"
+  commit-sha:
+    description: Source commit SHA used for traceability.
+    required: true
+  commit-message:
+    description: Source commit message used by the analyzer.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm install
+      env:
+        GITHUB_TOKEN: ${{ inputs['github-token'] }}
+        OPENAI_API_KEY: ${{ inputs['openai-api-key'] }}
+
+    - name: Build agent
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm run build
+
+    - name: Run docs sync pipeline
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm run pipeline
+      env:
+        GITHUB_TOKEN: ${{ inputs['github-token'] }}
+        OPENAI_API_KEY: ${{ inputs['openai-api-key'] }}
+        DOCS_REPO_TOKEN: ${{ inputs['docs-repo-token'] }}
+        DOCS_REPO_OWNER: ${{ inputs['docs-repo-owner'] }}
+        DOCS_REPO_NAME: ${{ inputs['docs-repo-name'] }}
+        DOCS_BASE_BRANCH: ${{ inputs['docs-base-branch'] }}
+        CONFIDENCE_THRESHOLD: ${{ inputs['confidence-threshold'] }}
+        COMMIT_SHA: ${{ inputs['commit-sha'] }}
+        COMMIT_MESSAGE: ${{ inputs['commit-message'] }}
+        SOURCE_REPOSITORY: ${{ github.repository }}
+        SOURCE_BEFORE_SHA: ${{ github.event.before }}
+        GITHUB_API_URL: ${{ github.api_url }}
+        GITHUB_SERVER_URL: ${{ github.server_url }}
+        GITHUB_RUN_ID: ${{ github.run_id }}

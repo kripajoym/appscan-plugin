@@ -1,0 +1,24 @@
+{
+  "name": "docs-sync-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "pipeline": "node --enable-source-maps dist/orchestrator/runPipeline.js",
+    "dev": "ts-node-esm src/orchestrator/runPipeline.ts"
+  },
+  "dependencies": {
+    "@octokit/rest": "^21.0.2",
+    "js-yaml": "^4.1.0",
+    "openai": "^4.86.1",
+    "simple-git": "^3.27.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.13.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

@@ -49,3 +49,11 @@ work
 .scala_dependencies
 .worksheet
 
+# Docs sync local environment helper
+docs-sync-agent/set-local-env.cmd
+set-local-env.cmd
+
+# Node dependencies
+node_modules/
+docs-sync-agent/node_modules/
+

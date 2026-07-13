@@ -1,0 +1,35 @@
+name: Docs Sync Agent
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
+      - ".github/**"
+
+concurrency:
+  group: docs-sync-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync-docs:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: ./docs-sync-agent
+        with:
+          github-token: ${{ github.token }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          docs-repo-token: ${{ secrets.DOCS_REPO_TOKEN }}
+          docs-repo-owner: ${{ secrets.DOCS_REPO_OWNER }}
+          docs-repo-name: ${{ secrets.DOCS_REPO_NAME }}
+          docs-base-branch: ${{ secrets.DOCS_BASE_BRANCH || 'main' }}
+          confidence-threshold: ${{ secrets.CONFIDENCE_THRESHOLD || '0.75' }}
+          commit-sha: ${{ github.sha }}
+          commit-message: ${{ github.event.head_commit.message }}
