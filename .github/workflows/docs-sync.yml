@@ -3,7 +3,7 @@ name: Docs Sync Agent
 on:
   push:
     branches:
-      - main
+      - "**"
     paths-ignore:
       - "**.md"
       - ".github/**"
