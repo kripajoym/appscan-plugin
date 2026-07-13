@@ -19,9 +19,9 @@ function getOpenAIKey() {
     throw new Error("OPENAI_API_KEY is required to run the docs sync agent.");
   }
 
-  if (!apiKey.startsWith("sk-")) {
+  /*if (!apiKey.startsWith("sk-")) {
     throw new Error("OPENAI_API_KEY format looks invalid. Use a valid key from platform.openai.com.");
-  }
+  }*/
 
   return apiKey;
 }
