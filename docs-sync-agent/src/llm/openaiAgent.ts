@@ -19,7 +19,36 @@ function getOpenAIKey() {
     throw new Error("OPENAI_API_KEY is required to run the docs sync agent.");
   }
 
+  if (!apiKey.startsWith("sk-")) {
+    throw new Error("OPENAI_API_KEY format looks invalid. Use a valid key from platform.openai.com.");
+  }
+
   return apiKey;
+}
+
+function summarizeOpenAIError(responseText: string): string {
+  try {
+    const payload = JSON.parse(responseText) as {
+      error?: {
+        message?: string;
+        code?: string;
+        type?: string;
+      };
+    };
+
+    const code = payload.error?.code;
+    if (code === "invalid_api_key") {
+      return "Invalid OpenAI API key. Update OPENAI_API_KEY secret with a valid key.";
+    }
+
+    if (payload.error?.type) {
+      return `OpenAI API error type: ${payload.error.type}`;
+    }
+  } catch {
+    // Ignore parse errors and return a generic message.
+  }
+
+  return "OpenAI API request failed. Check API key and account access.";
 }
 
 function buildResponseBody(model: string, systemPrompt: string, userPrompt: string) {
@@ -48,7 +77,7 @@ export async function runJsonAgent<TOutput>(input: {
 
   const responseText = await response.text();
   if (!response.ok) {
-    throw new Error(`OpenAI request failed (${response.status}): ${responseText}`);
+    throw new Error(`OpenAI request failed (${response.status}): ${summarizeOpenAIError(responseText)}`);
   }
 
   const payload = JSON.parse(responseText) as {
