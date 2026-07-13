@@ -21,7 +21,7 @@ import org.kohsuke.stapler.QueryParameter;
 import com.hcl.appscan.jenkins.plugin.Messages;
 
 public class FailureCondition extends AbstractDescribableImpl<FailureCondition> implements Serializable {
-	//changes to test a
+	//changes to test
 	
 	private static final long serialVersionUID = 1L;
 	
